@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <style>
+        	*{margin: 0;padding: 0;list-style: none;}
+        	.content{
+        		margin-top: 50px;
+        	}
+        	.ball{
+        		width: 40px;
+        		height: 40px;
+        		border-radius: 20px;
+        		margin-bottom: 20px;
+        	}
+        	.bg-red{background-color: red;}
+        	.bg-yg{background: yellowgreen;}
+        	.bg-orange{background: orange;}
+        </style>
+    </head>
+    <body>
+    <div class="content">
+    	<div class="ball bg-red" id="ball1"></div>
+    	<div class="ball bg-yg" id="ball2"></div>
+    	<div class="ball bg-orange" id="ball3"></div>
+    </div>
+    </body>
+    <script>
+    	// function animate(ball, distance, cb){
+    	// 	setTimeout(function(){
+    	// 		var marginLeft = parseInt(ball.style.marginLeft||0);
+	    // 		if (marginLeft == distance) {
+	    // 			cb && cb();
+	    // 			return
+	    // 		}
+	    // 		if (marginLeft > distance) {
+	    // 			marginLeft--;
+	    // 		}else{
+	    // 			marginLeft++;
+	    // 		}
+	    // 		ball.style.marginLeft = marginLeft +"px";
+	    // 		animate(ball,distance,cb);
+    	// 	}, 13)
+    	// }
+
+    	// animate(ball1, 300, function(){
+    	// 	animate(ball2, 500, function(){
+    	// 		animate(ball3, 300, function(){
+
+    	// 		})
+    	// 	})
+    	// })
+
+    	function animate2(ball, distance) {
+    		return new Promise((resolve, reject) => {
+    			var animate = function(ball,distance){
+		    		setTimeout(function(){
+		    			var marginLeft = parseInt(ball.style.marginLeft||0);
+			    		if (marginLeft == distance) {
+			    			resolve();
+			    			return;
+			    		}
+			    		if (marginLeft > distance) {
+			    			marginLeft--;
+			    		}else{
+			    			marginLeft++;
+			    		}
+			    		ball.style.marginLeft = marginLeft +"px";
+			    		animate(ball,distance);
+		    		}, 13)
+	    		}
+	    		animate(ball,distance);
+    		});
+    	}
+    	animate2(ball1, 300).then(function(){
+    		return animate2(ball2,500);
+    	}).then(function(){
+    		return animate2(ball3,300);
+    	})
+    </script>
+</html>
