@@ -1,0 +1,7 @@
+{
+  "name": "mail",
+  "version": "0.0.1",
+  "dependencies": {
+    "nodemailer": "^4.0.1"
+  }
+}
